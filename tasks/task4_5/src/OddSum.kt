@@ -7,7 +7,7 @@ fun main(){
         println("Enter a number to sum up to:")
         val max = readln().toULong()
 
-        // validate positive
+        // validate positive or beyond 2^64 -1 (U Long Limit)
         if (max < 1uL){
             println("Error: please input a positive Int")
             exitProcess(1)
@@ -17,13 +17,18 @@ fun main(){
         var count :ULong = 0u
         for (n in 1uL..max step 2) {
             count += n
+            // if overflowed
+            if (count == 0uL){
+                println("Error: sum of Odds exceeded 2^64")
+                exitProcess(3)
+            }
         }
 
         println(count)
     }
     catch (e: NumberFormatException) {
         println("Error: please input a positive Int")
-        exitProcess(1)
+        exitProcess(2)
     }
 
 
