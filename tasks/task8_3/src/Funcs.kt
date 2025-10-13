@@ -5,6 +5,8 @@ typealias Record = Pair<String,Double>
 fun fetchData(): List<Record> {
   // Create and return a simulated dataset here
   // Use the listOf() and to() functions to create the dataset
+  return (1..10).map { "record $it" to it.toDouble() }
+
 }
 
 // Challenge: compute average temperature with one line of code
