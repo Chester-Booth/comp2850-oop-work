@@ -23,6 +23,16 @@ class GradeTest : StringSpec({
         withClue("Mark=20") { grade(20) shouldBe "Fail" }
         withClue("Mark=0") { grade(0) shouldBe "Fail" }
     }
+    "An unknown grade (\"?\") is returned for marks below 0"{
+        withClue("Mark=-1") { grade(-1) shouldBe "?"}
+        withClue("Mark=-100") { grade(-1) shouldBe "?"}
+        withClue("Mark=-2147483648") { grade(-2147483648) shouldBe "?"}
+    }
+    "An unknown grade (\"?\") is returned for marks above 100"{
+        withClue("Mark=101") { grade(101) shouldBe "?"}
+        withClue("Mark=200") { grade(200) shouldBe "?"}
+        withClue("Mark=2147483647") { grade(2147483647) shouldBe "?"}
 
+    }
     // Add more tests here
 })
