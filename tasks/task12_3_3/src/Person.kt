@@ -16,8 +16,8 @@ fun main() {
 
     println("enter name")
     val name = readln()
-    println("enter dod yyyy-mm-dd")
-    val dob = readln()git 
+    println("enter dob yyyy-mm-dd")
+    val dob = readln()
 
     val person = Person(name, dob)
 
