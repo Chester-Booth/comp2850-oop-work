@@ -1,5 +1,3 @@
-import java.io.File
-
 const val MAX_GUESSES = 6
 const val WORD_LENGTH = 5
 const val WORDS_PATH = "data/words.txt"

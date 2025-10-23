@@ -3,15 +3,12 @@ import io.kotest.assertions.withClue
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.matchers.shouldBe
 import java.io.FileNotFoundException
-import java.nio.file.AccessDeniedException
 import java.nio.file.Files
 import kotlin.io.path.createTempDirectory
 import kotlin.io.path.createTempFile
 import kotlin.io.path.writeBytes
-import kotlin.io.path.writeLines
 import kotlin.io.path.writeText
 
-// tests for evaluateGuess ,pickRandomWord,readWordList,isValid
 @Suppress("unused")
 class WordleTest : StringSpec(
     {

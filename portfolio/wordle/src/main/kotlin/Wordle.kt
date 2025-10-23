@@ -4,15 +4,14 @@ import kotlin.random.Random
 
 fun isValid(word: String): Boolean {
     var isValid = false
-
     if (word.length < WORD_LENGTH) {
-        println("Not Enough Letters")
+        printError("Not Enough Letters")
     } else if(word.length > WORD_LENGTH) {
-        println("Too Many Letters")
+        printError("Too Many Letters")
     } else if (word in readWordList(INPUT_WORDS_PATH)) {
         isValid = true
     } else {
-        println("Not in word list")
+        printError("Not in word list")
     }
 
     return isValid
@@ -22,7 +21,7 @@ fun readWordList(filename: String): MutableList<String> {
     val file = File(filename)
 
     if (!file.exists()) throw FileNotFoundException("file not found: $filename")
-    if (file.extension != "txt") throw IllegalArgumentException("file is not a text file: $filename")
+    require(file.extension == "txt")
 
     return file.bufferedReader().readLines().toMutableList()
 }
@@ -30,17 +29,35 @@ fun readWordList(filename: String): MutableList<String> {
 fun pickRandomWord(words: MutableList<String>): String {
     require(words.isNotEmpty())
 
-    val chosenNumber = Random.nextInt(words.size) // Generate a random index
-    val chosenWord = words[chosenNumber] // Store word at index
-    words.removeAt(chosenNumber) // Remove word
+    val chosenNumber = Random.nextInt(words.size) // generate a random index
+    val chosenWord = words[chosenNumber] // store word at index
+    words.removeAt(chosenNumber) // remove word
     return chosenWord
 }
 
 fun obtainGuess(attempt: Int): String {
+    var incorrectTimes = 0
+
+    // loop until valid word found
     while(true) {
         println("Enter guess $attempt:")
         val input = readln().lowercase().trim()
-        if (isValid(input)) return input
+
+        if (isValid(input)) {
+            // remove any error messages that have appeared
+            if (incorrectTimes > 0) {
+                repeat(incorrectTimes) {
+                    // move cursor up and clear line
+                    print("\u001B[1A\u001B[2K") // remove Error message
+                }
+                print("\u001B[1A\u001B[2K\n") // remove final error message and newline
+            }
+            print("\u001B[2A\u001B[2K\n") // Clear "enter guess no:" line
+            return input
+        }
+        else {
+            incorrectTimes++
+        }
     }
 }
 
@@ -78,6 +95,8 @@ fun evaluateGuess(guess: String, target: String): List<LetterColour> {
 }
 
 fun displayGuess(guess: String, matches: List<LetterColour>) {
+    // move cursor up and clear inputted word
+    print("\u001B[1A\u001B[2K")
     for (i in 0 until guess.length) {
         when (matches[i]) {
             // ansi codes to colour terminal output
@@ -88,4 +107,11 @@ fun displayGuess(guess: String, matches: List<LetterColour>) {
     }
     // reset ansi code + new line
     print("\u001b[0m\n")
+}
+
+fun printError(errorString: String) {
+    // move cursor up line and delete it twice
+    print("\u001B[1A\u001B[2K") // remove inputted word
+    print("\u001B[1A\u001B[2K") // remove errors "Enter Guess Number"
+    println(errorString)
 }
