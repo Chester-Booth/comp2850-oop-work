@@ -2,13 +2,13 @@ import java.io.File
 import java.io.FileNotFoundException
 import kotlin.random.Random
 
-fun isValid(word: String): Boolean {
+fun isValid(input: String): Boolean {
     var isValid = false
-    if (word.length < WORD_LENGTH) {
+    if (input.length < WORD_LENGTH) {
         printError("Not Enough Letters")
-    } else if(word.length > WORD_LENGTH) {
+    } else if(input.length > WORD_LENGTH) {
         printError("Too Many Letters")
-    } else if (word in readWordList(INPUT_WORDS_PATH)) {
+    } else if (input in readWordList(INPUT_WORDS_PATH)) {
         isValid = true
     } else {
         printError("Not in word list")
