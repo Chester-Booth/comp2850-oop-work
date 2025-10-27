@@ -17,5 +17,5 @@ class Person private constructor(val name: String, val birth: LocalDate) {
 
 fun main(){
     val p = Person.create("Guy", LocalDate.of(2005, 7, 16))
-    val p2 = Person.create("Guy", LocalDate.of(2006,6,29))
+    //val p2 = Person.create("Guy", LocalDate.of(2006,6,29)) name must be unique
 }
