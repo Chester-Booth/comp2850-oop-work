@@ -9,7 +9,6 @@ import kotlin.io.path.createTempFile
 import kotlin.io.path.writeBytes
 import kotlin.io.path.writeText
 
-@Suppress("unused")
 class WordleTest : StringSpec(
     {
         "evaluateGuess: all greens when guess = target" {
@@ -112,7 +111,7 @@ class WordleTest : StringSpec(
                 Files.deleteIfExists(tmp)
             }
         }
-        "readWordList: works with single line file" {
+        "readWordList: 1works with single line file" {
             val tmp = createTempFile(suffix = ".txt")
             tmp.writeText("words")
 
